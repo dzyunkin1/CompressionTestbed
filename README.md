@@ -1,6 +1,6 @@
 # MLTestbed
 
-### Installation Instructions
+### Install Instructions
 Use the following commands to clone the repository, install dependencies, and train the network:
 
 ~~~
