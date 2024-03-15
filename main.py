@@ -2,10 +2,10 @@ import torch
 from torch import nn
 from torch import optim
 
-from trainer import Trainer
+from utils.trainer import Trainer
 from models.BasicBlock import BasicBlock
 from models.ResNet import ResNet
-from dataloader import MNISTDataLoader
+from utils.dataloader import MNISTDataLoader
 
 
 def main() -> None:
