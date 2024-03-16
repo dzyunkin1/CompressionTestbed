@@ -13,6 +13,8 @@ class ModelAnalyzer:
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         correct = 0
         total = 0
+        model.eval()
+
         with torch.no_grad():
             for images, labels in test_loader:
                 if device == "cuda":
