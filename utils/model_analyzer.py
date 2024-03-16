@@ -1,9 +1,32 @@
 import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
-from typing import Dict, Any
+from typing import Dict, Any, Tuple
 
 
 class ModelAnalyzer:
+
+    @staticmethod
+    def test_model(model: nn.Module, test_loader: DataLoader) -> Tuple[float, int]:
+
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        correct = 0
+        total = 0
+        with torch.no_grad():
+            for images, labels in test_loader:
+                if device == "cuda":
+                    images, labels = (
+                        images.cuda(),
+                        labels.cuda(),
+                    )  # Move data to GPU if available
+                outputs = model(images)
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+        accuracy = 100 * correct / total
+        return accuracy, total
+
     @staticmethod
     def get_model_summary(model: Any) -> Dict[str, Any]:
         total_params = sum(p.numel() for p in model.parameters())
