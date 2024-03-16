@@ -8,7 +8,12 @@ class ModelAnalyzer:
     def get_model_summary(model: Any) -> Dict[str, Any]:
         total_params = sum(p.numel() for p in model.parameters())
         total_layers = sum(1 for _ in model.parameters())
-        return {"Total Parameters": total_params, "Total Layers": total_layers}
+        model_size = total_params * 4 / (1024**2)  # Convert bytes to megabytes
+        return {
+            "Total Parameters": total_params,
+            "Total Layers": total_layers,
+            "Model Size (MB)": round(model_size, 2),
+        }
 
     @staticmethod
     def plot_data_type_distribution(model: Any) -> None:
