@@ -36,4 +36,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    import sys
+
+    assert sys.version_info >= (3, 6)
     main()
