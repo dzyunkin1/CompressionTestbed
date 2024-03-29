@@ -10,4 +10,4 @@ pip install -r requirements.txt
 python main.py 
 ~~~
 
-Alternatively, open the JuPyter notebook and execute all the cells sequentially.
+Alternatively, open the JuPyter notebook and execute all the cells sequentially, or simply look at each cell pre-computed output.
