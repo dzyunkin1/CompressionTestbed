@@ -3,12 +3,24 @@ from torch.nn.utils import prune
 from torch.nn import Module
 from torch.utils.data import DataLoader
 import copy
+from typing import List
 
 
 class ModelCompressor:
     def __init__(self, model: Module, test_loader: DataLoader) -> None:
         self.model = model
         self.test_loader = test_loader
+
+    def quantize_model_dynamic(
+        self, quantization_type: torch.dtype, quantization_layers: List[torch.dtype]
+    ) -> Module:
+        model_copy = copy.deepcopy(self.model)
+
+        model_quantized = torch.ao.quantization.quantize_dynamic(
+            model_copy, quantization_layers, dtype=quantization_type, inplace=False
+        )
+
+        return model_quantized
 
     def prune_model(self, pruning_ratio: float, pruning_type: str) -> None:
         model_copy = copy.deepcopy(self.model)
